@@ -10,7 +10,7 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
 
         .controller('HomeController', function($scope) {
 
-           var socket = io.connect('http://localhost:3000');
+           var socket = io.connect('http://socialcine-server-node.herokuapp.com/');
            var user;
 
            if(socket){
@@ -55,7 +55,7 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
         .controller('SingleController', function($scope, $routeParams, $location) {
 
               var canal = $routeParams.paginaId; 
-              var socket = io.connect('http://localhost:3000');
+              var socket = io.connect('http://socialcine-server-node.herokuapp.com/');
               var user;
 
                if(socket){
