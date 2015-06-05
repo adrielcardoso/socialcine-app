@@ -33,7 +33,7 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                             $('#box-programacao').fadeIn(500);
                             $('#box-load').fadeOut(100);
                         }
-                      }, 1500);  
+                      }, 2000);  
                     });
                 });    
 
@@ -79,7 +79,7 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                                   $('#box-programacao').fadeIn(500);
                                   $('#box-load').fadeOut(100);
                               }
-                            }, 1500); 
+                            }, 2000); 
                         });
                     });    
 
