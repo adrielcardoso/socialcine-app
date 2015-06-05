@@ -17,6 +17,15 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                 socket.emit('quem_sou', '');
                 socket.on('eu_sou' , function(user_id){
 
+                    setInterval(function(){
+
+                      socket.emit('rota', {
+                          'rota' : 'default',
+                          'user' : user_id
+                      });
+                        
+                    }, 120000);
+
                   	socket.emit('rota', {
                         'rota' : 'default',
                         'user' : user_id
@@ -28,12 +37,20 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
       				            $scope.programacao = jQuery.parseJSON(obj.req);
       				        });
 
-                      setInterval(function(){
-                        if(obj.req){
-                            $('#box-programacao').fadeIn(500);
-                            $('#box-load').fadeOut(100);
+                      var i = 0;
+                      var loop = setInterval(function(){
+
+                        if(i == 2){
+                          if(obj.req){
+                              $('#box-programacao').fadeIn(500);
+                              $('#box-load').fadeOut(100);
+
+                              clearInterval(loop);
+                          }
                         }
-                      }, 2000);  
+
+                        i++;
+                      }, 1000);  
                     });
                 });    
 
@@ -63,6 +80,16 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                     socket.emit('quem_sou', '');
                     socket.on('eu_sou' , function(user_id){
 
+                              setInterval(function(){
+
+                              socket.emit('rota', {
+                                  'rota' : 'single',
+                                  'user' : user_id,
+                                  'single' : canal
+                              });
+                                
+                            }, 120000);
+
                             socket.emit('rota', {
                                 'rota' : 'single',
                                 'user' : user_id,
@@ -70,16 +97,25 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                             });
 
                         socket.on('rota_' + user_id, function(obj){
+
                             $scope.$apply(function() {
                                 $scope.programacao = jQuery.parseJSON(obj.req);
                             });
 
-                            setInterval(function(){
-                              if(obj.req){
-                                  $('#box-programacao').fadeIn(500);
-                                  $('#box-load').fadeOut(100);
+                            var i = 0;
+                           var loop = setInterval(function(){
+
+                              if(i == 2){
+                                if(obj.req){
+                                    $('#box-programacao').fadeIn(500);
+                                    $('#box-load').fadeOut(100);
+
+                                    clearInterval(loop);
+                                }
                               }
-                            }, 2000); 
+
+                              i++;
+                            }, 1000); 
                         });
                     });    
 
