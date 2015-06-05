@@ -17,16 +17,15 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                 socket.emit('quem_sou', '');
                 socket.on('eu_sou' , function(user_id){
 
-                  console.log(user_id);
-
                   	socket.emit('rota', {
                         'rota' : 'default',
                         'user' : user_id
                     });
 
                     socket.on('rota_' + user_id, function(obj){
+
                     	$scope.$apply(function() {
-      				            $scope.programacao = obj.req;
+      				            $scope.programacao = jQuery.parseJSON(obj.req);
       				        });
 
                       setInterval(function(){
@@ -72,7 +71,7 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
 
                         socket.on('rota_' + user_id, function(obj){
                             $scope.$apply(function() {
-                                $scope.programacao = obj.req;
+                                $scope.programacao = jQuery.parseJSON(obj.req);
                             });
 
                             setInterval(function(){
