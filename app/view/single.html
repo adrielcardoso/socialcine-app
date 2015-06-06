@@ -55,6 +55,15 @@
                 </p>
             </div>
 
+            <div style="position:relative; margin:auto; width:90%; text-align:left;margin-top:20px;">
+                <p style="margin:0;">guia de porcentagem:</p>
+                <div class="progress">
+                  <div data-percentual="percentual" data-start="{{single.programacao['start_controll']}}" data-stop="{{single.programacao['stop_controll']}}" class="progress-bar progress-bar-info progress-bar-striped percentual-movie" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: {{single.programacao['percentual']}}%">
+                       {{single.programacao['percentual']}}%
+                  </div>
+                </div>
+            </div>
+
             <div style="position:relative; float:left; left:0px; width: 100%;">
 
                 <div style="position: relative; width: 100%;text-align: center;">

@@ -14,127 +14,37 @@ angular.module('Factory', ['ngRoute'])
         .factory('Controle', function($http, $location) {
 
             return {
-                userLogado: function() {
-                    if (!window.localStorage.getItem('email') && !window.localStorage.getItem('key')) {
-                        document.location.href = 'http://socialcine.tv/#/login';
-                    }
-                },
-                login: function() {
+                calcula_porcentagem: function(start, stop) {
 
-                    var email = $('#email').val();
-                    var senha = $('#senha').val();
 
-                    $.ajax({
-                        type: 'json',
-                        url: 'http://socialcine.tv/api/login/login',
-                        data: 'email=' + email + '&senha=' + senha,
-                        method: 'post',
-                        async: true,
-                        success: function(data) {
+                        var iniciano_hora = start.substr(8, 2);
+                        var iniciano_minuto = start.substr(10, 2);
 
-                            var result = jQuery.parseJSON(data);
-                            console.log(result);
-                            if (result['retorno']['error'] === 'true') {
-                                $('#gifLoad').fadeOut(0);
+                        var fim_hora = stop.substr(8, 2);
+                        var fim_minuto = stop.substr(10, 2);
 
-                                $('#mensagem').fadeIn(300, function() {
+                        var d = new Date();
+                        var tempo = d.getHours() + d.getMinutes();
 
-                                    $('#ms').html(result['retorno']['mensagem']);
 
-                                    var cont = Number(0);
-                                    var sequence = setInterval(function() {
+                        var tempo_estimado = eval(((fim_hora + fim_minuto) - (iniciano_hora + iniciano_minuto)));
 
-                                        if (cont === 5) {
-                                            $('#mensagem').fadeOut(100);
-                                            clearInterval(sequence);
-                                        }
-                                        console.log(cont);
-                                        cont++;
-                                    }, 1000);
-                                });
-                                console.log(data);
-                            } else {
-                                $('#gifLoad').fadeOut(0);
+                        var tem_para_terminar = ((fim_hora + fim_minuto) - tempo);
 
-                                window.localStorage.setItem('email', result['retorno']['email']);
-                                window.localStorage.setItem('key', result['retorno']['key']);
-
-                                document.location.href = 'http://socialcine.tv/#/home';
-                            }
+                        if(tempo_estimado > tem_para_terminar){
+                            var tempoquepassou = (tempo_estimado - tem_para_terminar);
+                        }else{
+                            var tempoquepassou = (tem_para_terminar - tempo_estimado);
                         }
-                    });
-                },
-                criar: function() {
 
-                    var email = $('#email').val();
-                    var email2 = $('#email2').val();
-                    var senha = $('#senha').val();
-                    var senha2 = $('#senha2').val();
+                        var porcentagem = eval(((100 * tempoquepassou) / tempo_estimado));
 
-                    $.ajax({
-                        type: 'json',
-                        url: 'http://socialcine.tv/api/login/criar',
-                        data: 'email=' + email + '&email2=' + email2 + '&senha=' + senha + '&senha2=' + senha2,
-                        method: 'post',
-                        async: true,
-                        success: function(data) {
+                        if(porcentagem < 0){
+                            porcentagem = porcentagem.replace('-', '');
+                        }    
 
-                            var result = jQuery.parseJSON(data);
-                            console.log(result);
-                            if (result['retorno']['error'] === 'true') {
-                                $('#gifLoad').fadeOut(0);
-
-                                $('#mensagem').fadeIn(300, function() {
-                                    $('#ms').html(result['retorno']['mensagem']);
-
-                                    var cont = Number(0);
-                                    var sequence = setInterval(function() {
-
-                                        if (cont === 5) {
-                                            $('#mensagem').fadeOut(100);
-                                            clearInterval(sequence);
-                                        }
-                                        console.log(cont);
-                                        cont++;
-                                    }, 1000);
-                                });
-                            } else {
-                                $('#gifLoad').fadeOut(0);
-
-                                /* salvando sessao */
-                                window.localStorage.setItem('email', result['retorno']['email']);
-                                window.localStorage.setItem('key', result['retorno']['key']);
-
-                                document.location.href = 'http://socialcine.tv/#/home';
-                            }
-                        },
-                        error: function(error) {
-                            $('#gifLoad').fadeOut(0);
-                            alert('Erro no procedimento, tente em 1 minuto...');
-                        }
-                    });
-                },
-                scrol: function() {
-                    var prim = null;
-                    var segu = null;
-
-                    $(document).ready(function() {
-                        prim = $(window).scrollTop();
-                        $(window).scroll(function() {
-                            segu = $(window).scrollTop();
-                            if (prim < segu) {
-                                $('#book').fadeOut(0);
-                                $('#voltarTopo').fadeIn(0);
-                                prim = $(window).scrollTop();
-                            } else {
-                                //alert ("foi para cima");
-                                $('#book').fadeIn(0);
-                                $('#voltarTopo').fadeOut(0);
-                                prim = $(window).scrollTop();
-                            }
-                        });
-                    });
-
-                },
+                        return (porcentagem > 100 ? 100 : porcentagem);
+                }
+                
             }
         });

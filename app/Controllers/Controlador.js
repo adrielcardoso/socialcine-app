@@ -1,4 +1,4 @@
-angular.module('Controlador', ['ngRoute', 'ngError'])
+angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
 
         .config(['$httpProvider', function ($httpProvider) {
 
@@ -8,7 +8,7 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
             }
         ])
 
-        .controller('HomeController', function ($scope) {
+        .controller('HomeController', function ($scope, Controle) {
 
             var socket = io.connect('http://socialcine-server-node.herokuapp.com');
             //var socket = io.connect('http://localhost:3000');
@@ -103,8 +103,8 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                 }
             }
 
-
             var permisao = true;
+            var permisao_percentual = true;
             setInterval(function () {
 
                 for (novidade in titulos) {
@@ -143,10 +143,45 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                     }
                 }
 
+                if(permisao_percentual == true){
+                    
+                    var percentual = $('*[data-percentual="percentual"]');
+
+                    if(percentual.length > 0){
+                        permisao_percentual = false;
+                        analisaTime(percentual);
+                    }
+                }
+
             }, 500);
+
+            function analisaTime(element){
+
+                setInterval(function(){
+
+                    var analisa_time = true;
+
+                    for(single in element){
+
+                        if(analisa_time == true){
+
+                            var string_calcula_tempo = Controle.calcula_porcentagem($(element).data('start').toString(), $(element).data('stop').toString()) + '%';
+
+                            $(element[single]).attr({
+                                'style' : 'width: ' + string_calcula_tempo,
+                            });
+
+                            $(element[single]).html(string_calcula_tempo);
+
+                            break;    
+                            analisa_time = false;
+                        }
+                    }
+                }, 2000);
+            }
         })
 
-        .controller('SingleController', function ($scope, $routeParams, $location) {
+        .controller('SingleController', function ($scope, $routeParams, $location, Controle) {
 
             var canal = $routeParams.paginaId;
             var socket = io.connect('http://socialcine-server-node.herokuapp.com');
@@ -290,4 +325,30 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                 }
 
             }, 500);
+
+
+                  function analisaTime(element){
+
+                        setInterval(function(){
+
+                            var analisa_time = true;
+
+                            for(single in element){
+
+                                if(analisa_time == true){
+
+                                    var string_calcula_tempo = Controle.calcula_porcentagem($(element).data('start').toString(), $(element).data('stop').toString()) + '%';
+
+                                    $(element[single]).attr({
+                                        'style' : 'width: ' + string_calcula_tempo,
+                                    });
+
+                                    $(element[single]).html(string_calcula_tempo);
+
+                                    break;    
+                                    analisa_time = false;
+                                }
+                            }
+                        }, 2000);
+                    }
         });
