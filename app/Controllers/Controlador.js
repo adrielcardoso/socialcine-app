@@ -130,10 +130,10 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                                     });
                                 }
                                 if (result.Actors && texto) {
-                                    $(texto).html("Atores: <br/>" + result.Actors);
+                                    $(texto).html("<label style='font-size: 10px;'>atores: </label><br/>" + result.Actors);
                                 }
                                 if (result.Released && Released) {
-                                    $(Released).html("Estreia: <br/>" + result.Released);
+                                    $(Released).html("<label style='font-size: 10px;'>estreia:</label> <br/>" + result.Released);
                                 }
                                 permisao = true;
                             }
@@ -276,10 +276,10 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                                     });
                                 }
                                 if (result.Actors && texto) {
-                                    $(texto).append("Atores: <br/>" + result.Actors);
+                                    $(texto).html("<label style='font-size: 10px;'>atores: </label><br/>" + result.Actors);
                                 }
                                 if (result.Released && Released) {
-                                    $(Released).append("Estreia: <br/>" + result.Released);
+                                    $(Released).html("<label style='font-size: 10px;'>estreia:</label> <br/>" + result.Released);
                                 }
                                 permisao = true;
                             }
