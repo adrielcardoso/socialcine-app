@@ -32,7 +32,7 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                     });
 
                     setInterval(function(){
-                      socket.emit('users_online', '');
+                      socket.emit('users_online_emit', '');
                     }, 1000);
                     socket.on('users_online', function(obj){
                       $scope.$apply(function() {
@@ -106,7 +106,7 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                             });
 
                             setInterval(function(){
-                              socket.emit('users_online', '');
+                              socket.emit('users_online_emit', '');
                             }, 1000);
                             socket.on('users_online', function(obj){
                               $scope.$apply(function() {
