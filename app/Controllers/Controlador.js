@@ -114,7 +114,7 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                         var movie = titulos[novidade].original;
                         var element = $('*[data-titulo="' + movie + '"]');
                         var texto = $('*[data-texto="' + movie + '"]');
-                        var Released = $('*[data-texto="' + movie + '"]');
+                        var Released = $('*[data-Released="' + movie + '"]');
                         permisao = false;
 
                         $.ajax({
@@ -130,10 +130,10 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                                     });
                                 }
                                 if (result.Actors && texto) {
-                                    $(texto).append("Atores: <br/>" + result.Actors);
+                                    $(texto).html("Atores: <br/>" + result.Actors);
                                 }
                                 if (result.Released && Released) {
-                                    $(Released).append(result.Released);
+                                    $(Released).html(result.Released);
                                 }
                                 permisao = true;
                             }
