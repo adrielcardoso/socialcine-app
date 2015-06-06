@@ -11,6 +11,7 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
         .controller('HomeController', function($scope) {
 
            var socket = io.connect('https://socialcine-server-node.herokuapp.com');
+           //var socket = io.connect('http://localhost:3000');
            var user;
 
            if(socket){
@@ -33,7 +34,7 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
 
                     setInterval(function(){
                       socket.emit('users_online_emit', '');
-                    }, 1000);
+                    }, 500);
                     socket.on('users_online', function(obj){
                       $scope.$apply(function() {
                           $scope.users_online = obj;
@@ -43,7 +44,7 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                     socket.on('rota_' + user_id, function(obj){
 
                     	$scope.$apply(function() {
-      				            $scope.programacao_single = jQuery.parseJSON(obj.req);
+      				            $scope.programacao = jQuery.parseJSON(obj.req);
       				        });
 
                       var i = 0;
@@ -83,6 +84,7 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
 
               var canal = $routeParams.paginaId; 
               var socket = io.connect('https://socialcine-server-node.herokuapp.com');
+              //var socket = io.connect('http://localhost:3000');
               var user;
 
                if(socket){
@@ -117,7 +119,7 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                         socket.on('rota_' + user_id, function(obj){
 
                             $scope.$apply(function() {
-                                $scope.programacao = jQuery.parseJSON(obj.req);
+                                $scope.programacao_single = jQuery.parseJSON(obj.req);
                             });
 
                             var i = 0;
