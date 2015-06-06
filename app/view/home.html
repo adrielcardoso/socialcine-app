@@ -1,69 +1,86 @@
 <div style="position:fixed; margin-top:0; top:0px; width:100%;background:#CD6839; height:50px;border-bottom:1px solid #cdcdcd;z-index:2;">
 
-  <div style="position:relative; margin:auto; width:1000px; height:50px;">
+    <div style="position:relative; margin:auto; width:1000px; height:50px;">
 
-      <div style="position:relative; float:left;left:0px;">
-          <img src="app/componentes/img/logo_.png" style="position:relative; margin:auto; width:30px;left:0px;top:10px;" />
-      </div>
-      <div style="position:relative; float:left;left:10px;width:400px;">
-         <input placeholder="pesquisa rápida do que está passando agora na TV" type="text" class="form-control" id="search" ng-model="search" style="height:30px;top:10px; position: relative; background:#fff; width:100%;" />
-      </div>
-      <div style="clear:both"></div>
-  </div>
+        <div style="position:relative; float:left;left:0px;">
+            <img src="app/componentes/img/logo_.png" style="position:relative; margin:auto; width:30px;left:0px;top:10px;" />
+        </div>
+        <div style="position:relative; float:left;left:10px;width:400px;">
+            <input placeholder="pesquisa rápida do que está passando agora na TV" type="text" class="form-control" id="search" ng-model="search" style="height:30px;top:10px; position: relative; background:#fff; width:100%;" />
+        </div>
+        <div style="clear:both"></div>
+    </div>
 
-  <p style="position:absolute; float:right;right:50px;font-size:12px;margin-top:-30px;z-inedx:3;color:#fff;">
-   Agora Online: <label>{{ users_online }}</label>
-  </p>
+    <p style="position:absolute; float:right;right:50px;font-size:12px;margin-top:-30px;z-inedx:3;color:#fff;">
+        Agora Online: <label>{{ users_online}}</label>
+    </p>
 </div>
 
 <div class="col-md-12" style="text-align:center;margin-top:50px;" id="box-load">
     <p >
-       <img src="app/componentes/img/google_gif.gif" style="position:relative; margin:auto; width:80px;" /> <br />
+        <img src="app/componentes/img/google_gif.gif" style="position:relative; margin:auto; width:80px;" /> <br />
         <label>carregando</label> 
     </p>
 </div>
 
 <div class="col-md-12" style="text-align:left; margin-top:50px;display:none;" id="box-programacao">
 
-        <!-- card view -->
-        <div ng-repeat="single in programacao | filter:search" style="box-shadow:1px 1px 50px #696969;position:relative; margin:auto; width:496px; min-height:420px; border:1px solid #cdcdcd;background:#fff;margin-top:20px; border-radius:3px;">
-              <div style="position:relative; margin:auto; width:100%;">
-                  <div style="position:relative; float:left; width:100px; left:0px;padding:10px;">
-                      <img err-src="app/componentes/img/not.png" src="app/componentes/img/icones/{{single.programacao['channel'] }}.jpg" style="width:80px;height:80px;" />
-                  </div>
-                  <div style="position:relative; float:left; width:300px; text-align:center; left:0px;padding:10px;line-height:80px;font-size:16px;color:#696969;">
-                    {{single.programacao['canal'].canal }}
-                  </div>
-                  <div style="clear:both;"></div>
-              </div>
-              <div style="position:relative; margin:auto; width:100%; text-align:center;">
-                  <h3>
-                    {{single.programacao['titulo_pt'] }} <small>{{single.programacao['subTitulo'] }}</small>
-                  </h3>
-              </div>
-              <div style="position:relative; margin:auto; width:100%; text-align:center;">
-                  <p style="font-size:16px;">
-                   <img ng-src="https://cdn1.iconfinder.com/data/icons/ui-icons-2/512/checkbox-on-green-01-128.png" style="position:relative; width: 20px; height: 20px;" />
-                   {{single.programacao['start']}}
-
-                   <img ng-src="https://cdn1.iconfinder.com/data/icons/ui-icons-2/512/checkbox-on-red-01-128.png" style="position:relative; width: 20px; height: 20px;" />
-                   {{single.programacao['stop']}}
-                  </p>
-              </div>
-
-              <div style="position:relative; margin:auto; width:100%; text-align:center;padding:10%;">
-                {{single.programacao['descricao'] }}
-              </div>
-
-              <div style="position:relative; margin:auto; width:100%; text-align:center;padding:10%;"> 
-                <a href="#/programacao-de-canais-online/{{single.programacao['channel'] }}">
-                  <button class="btn btn-default">
-                      Ver programação completa
-                  </button>
-                </a>
-              </div> 
+    <!-- card view -->
+    <div ng-repeat="single in programacao| filter:search" style="box-shadow:1px 1px 50px #696969;position:relative; margin:auto; width:496px; min-height:420px; border:1px solid #cdcdcd;background:#fff;margin-top:20px; border-radius:3px;">
+        <div style="position:relative; margin:auto; width:100%;">
+            <div style="position:relative; float:left; width:100px; left:0px;padding:10px;">
+                <img err-src="app/componentes/img/not.png" src="app/componentes/img/icones/{{single.programacao['channel']}}.jpg" style="width:80px;height:80px;" />
+            </div>
+            <div style="position:relative; float:left; width:300px; text-align:center; left:0px;padding:10px;line-height:80px;font-size:16px;color:#696969;">
+                {{single.programacao['canal'].canal}}
+            </div>
+            <div style="clear:both;"></div>
         </div>
+        <div style="position:relative; margin:auto; width:100%; text-align:center;">
+            <h3>
+                {{single.programacao['titulo_pt']}} <small>{{single.programacao['subTitulo']}}</small>
+            </h3>
+        </div>
+        <div style="position:relative; margin:auto; width:100%; text-align:center;">
+            <p style="font-size:16px;">
+                <img ng-src="https://cdn1.iconfinder.com/data/icons/ui-icons-2/512/checkbox-on-green-01-128.png" style="position:relative; width: 20px; height: 20px;" />
+                {{single.programacao['start']}}
+
+                <img ng-src="https://cdn1.iconfinder.com/data/icons/ui-icons-2/512/checkbox-on-red-01-128.png" style="position:relative; width: 20px; height: 20px;" />
+                {{single.programacao['stop']}}
+            </p>
+        </div>
+
+        <div style="position:relative; float:left; left:0px; width: 100%;">
+
+            <div style="position: relative; width: 100%;text-align: center;">
+                <img err-src="app/componentes/img/not.png" data-img="poster" data-titulo="{{ single.programacao.titulo_original}}" style="width: 250px;margin:auto;" />
+            </div>
+
+            <div style="position: relative; width: 100%;">
+                <p style="position: relative; width: 85%;margin:auto;font-size:13px;padding:25px;" data-texto="{{ single.programacao.titulo_original}}"></p>
+            </div>
+
+            <div style="position: relative; width: 100%;">
+                <p data-Released="{{ single.programacao.titulo_original}}"></p>
+            </div>
+        </div>
+
+        <div style="position:relative; margin:auto; width:100%; text-align:center;padding:10%;">
+            <p style="font-size: 10px;">sinopse:</p>
+            
+            {{single.programacao['descricao']}}
+        </div>
+
+        <div style="position:relative; margin:auto; width:100%; text-align:justify;padding:10%;"> 
+            <a href="#/programacao-de-canais-online/{{single.programacao['channel']}}">
+                <button class="btn btn-default">
+                    Ver programação completa
+                </button>
+            </a>
+        </div> 
     </div>
+</div>
 </div>
 
 <img id='voltarTopo' class="hover" style="position: fixed;border:1px solid #fff; right: 3%; bottom: 20px; background: white; z-index: 2; display: block; outline: none;" src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-up-01-128.png" />

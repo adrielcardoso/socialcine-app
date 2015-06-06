@@ -2,7 +2,7 @@
     <head>
         <title>SocialCine.Tv</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="icon" href="http://socialcine.tv/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="http://localhost/chat/app/componentes/img/logo_.png" type="image/png" />
 
         <!-- BOOTSTRAP FRAMEWORK CSS -->
         <link type='text/css' href='http://getbootstrap.com/dist/css/bootstrap.min.css' rel='stylesheet' />
