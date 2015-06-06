@@ -133,7 +133,7 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                                     $(texto).html("Atores: <br/>" + result.Actors);
                                 }
                                 if (result.Released && Released) {
-                                    $(Released).html(result.Released);
+                                    $(Released).html("Estreia: <br/>" + result.Released);
                                 }
                                 permisao = true;
                             }
@@ -279,7 +279,7 @@ angular.module('Controlador', ['ngRoute', 'ngError'])
                                     $(texto).append("Atores: <br/>" + result.Actors);
                                 }
                                 if (result.Released && Released) {
-                                    $(Released).append(result.Released);
+                                    $(Released).append("Estreia: <br/>" + result.Released);
                                 }
                                 permisao = true;
                             }
