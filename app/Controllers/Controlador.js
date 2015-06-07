@@ -74,12 +74,16 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
 
                 var titulos = $('img');
 
-                $.each(titulos, function (index, value) {
+                if(titulos.length > 1){
+                    $.each(titulos, function (index, value) {
 
-                    if ($(value).data('titulo')) {
-                        addTitulo($(value).data('titulo'), $(value));
-                    }
-                });
+                        if ($(value).data('titulo')) {
+                            addTitulo($(value).data('titulo'), $(value));
+                        }
+                    });
+
+                    clearInterval(data);
+               }
 
             }, 1000);
 
@@ -105,7 +109,9 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
 
             var permisao = true;
             var permisao_percentual = true;
-            setInterval(function () {
+
+            var permisao_media = 0;
+            var media = setInterval(function () {
 
                 for (novidade in titulos) {
 
@@ -136,10 +142,15 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
                                     $(Released).html("<label style='font-size: 10px;'>estreia:</label> <br/>" + result.Released);
                                 }
                                 permisao = true;
+                                permisao_media++;
                             }
                         });
 
                         titulos[novidade].status = true;
+
+                        if(titulos.length == permisao_media){
+                            clearInterval(media);
+                        }
                     }
                 }
 
@@ -157,27 +168,18 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
 
             function analisaTime(element){
 
-                setInterval(function(){
+                var string_calcula_tempo = Controle.calcula_porcentagem($(element).data('start').toString(), $(element).data('stop').toString());
 
-                    var analisa_time = true;
+                string_calcula_tempo = Math.ceil(string_calcula_tempo);
+                string_calcula_tempo =  (string_calcula_tempo < 1 || string_calcula_tempo == "" 
+                    ? "2" 
+                    : (string_calcula_tempo > 100 ? 99 : string_calcula_tempo));
+                     
+                $(element[single]).attr({
+                    'style' : 'width: ' + string_calcula_tempo + '%',
+                });
 
-                    for(single in element){
-
-                        if(analisa_time == true){
-
-                            var string_calcula_tempo = Controle.calcula_porcentagem($(element).data('start').toString(), $(element).data('stop').toString()) + '%';
-
-                            $(element[single]).attr({
-                                'style' : 'width: ' + string_calcula_tempo,
-                            });
-
-                            $(element[single]).html(string_calcula_tempo);
-
-                            break;    
-                            analisa_time = false;
-                        }
-                    }
-                }, 2000);
+                $(element[single]).html(string_calcula_tempo);
             }
         })
 
@@ -255,12 +257,16 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
 
                 var titulos = $('img');
 
-                $.each(titulos, function (index, value) {
+                if(titulos.length > 1){
+                    $.each(titulos, function (index, value) {
 
-                    if ($(value).data('titulo')) {
-                        addTitulo($(value).data('titulo'), $(value));
-                    }
-                });
+                        if ($(value).data('titulo')) {
+                            addTitulo($(value).data('titulo'), $(value));
+                        }
+                    });
+
+                    clearInterval(data);
+               }
 
             }, 1000);
 
@@ -285,8 +291,8 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
             }
 
 
-            var permisao = true;
-            setInterval(function () {
+            var permisao_media = 0;
+            var media = setInterval(function () {
 
                 for (novidade in titulos) {
 
@@ -295,7 +301,7 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
                         var movie = titulos[novidade].original;
                         var element = $('*[data-titulo="' + movie + '"]');
                         var texto = $('*[data-texto="' + movie + '"]');
-                        var Released = $('*[data-texto="' + movie + '"]');
+                        var Released = $('*[data-Released="' + movie + '"]');
                         permisao = false;
 
                         $.ajax({
@@ -317,38 +323,44 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
                                     $(Released).html("<label style='font-size: 10px;'>estreia:</label> <br/>" + result.Released);
                                 }
                                 permisao = true;
+                                permisao_media++;
                             }
                         });
 
                         titulos[novidade].status = true;
+
+                        if(titulos.length == permisao_media){
+                            clearInterval(media);
+                        }
+                    }
+                }
+
+                if(permisao_percentual == true){
+                    
+                    var percentual = $('*[data-percentual="percentual"]');
+
+                    if(percentual.length > 0){
+                        permisao_percentual = false;
+                        analisaTime(percentual);
                     }
                 }
 
             }, 500);
 
 
-                  function analisaTime(element){
+            function analisaTime(element){
 
-                        setInterval(function(){
+                var string_calcula_tempo = Controle.calcula_porcentagem($(element).data('start').toString(), $(element).data('stop').toString());
 
-                            var analisa_time = true;
+                string_calcula_tempo = Math.ceil(string_calcula_tempo);
+                string_calcula_tempo =  (string_calcula_tempo < 1 || string_calcula_tempo == "" 
+                    ? "2" 
+                    : (string_calcula_tempo > 100 ? 99 : string_calcula_tempo));
+                     
+                $(element[single]).attr({
+                    'style' : 'width: ' + string_calcula_tempo + '%',
+                });
 
-                            for(single in element){
-
-                                if(analisa_time == true){
-
-                                    var string_calcula_tempo = Controle.calcula_porcentagem($(element).data('start').toString(), $(element).data('stop').toString()) + '%';
-
-                                    $(element[single]).attr({
-                                        'style' : 'width: ' + string_calcula_tempo,
-                                    });
-
-                                    $(element[single]).html(string_calcula_tempo);
-
-                                    break;    
-                                    analisa_time = false;
-                                }
-                            }
-                        }, 2000);
-                    }
+                $(element[single]).html(string_calcula_tempo);
+            }
         });
