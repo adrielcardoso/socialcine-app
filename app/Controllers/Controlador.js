@@ -110,7 +110,6 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
             var permisao = true;
             var permisao_percentual = true;
 
-            var permisao_media = 0;
             var media = setInterval(function () {
 
                 for (novidade in titulos) {
@@ -142,15 +141,10 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
                                     $(Released).html("<label style='font-size: 10px;'>estreia:</label> <br/>" + result.Released);
                                 }
                                 permisao = true;
-                                permisao_media++;
                             }
                         });
 
                         titulos[novidade].status = true;
-
-                        if(titulos.length == permisao_media){
-                            clearInterval(media);
-                        }
                     }
                 }
 
@@ -291,7 +285,6 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
             }
 
 
-            var permisao_media = 0;
             var media = setInterval(function () {
 
                 for (novidade in titulos) {
@@ -323,15 +316,10 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
                                     $(Released).html("<label style='font-size: 10px;'>estreia:</label> <br/>" + result.Released);
                                 }
                                 permisao = true;
-                                permisao_media++;
                             }
                         });
 
                         titulos[novidade].status = true;
-
-                        if(titulos.length == permisao_media){
-                            clearInterval(media);
-                        }
                     }
                 }
 
