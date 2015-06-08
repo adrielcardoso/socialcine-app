@@ -16,7 +16,6 @@ angular.module('Factory', ['ngRoute'])
             return {
                 calcula_porcentagem: function(start, stop) {
 
-
                         var iniciano_hora = start.substr(8, 2);
                         var iniciano_minuto = start.substr(10, 2);
 
@@ -24,22 +23,22 @@ angular.module('Factory', ['ngRoute'])
                         var fim_minuto = stop.substr(10, 2);
 
                         var d = new Date();
-                        var tempo = d.getHours() + d.getMinutes();
-
+                        var tempo = d.getHours() +''+ d.getMinutes();
 
                         var tempo_estimado = eval(((fim_hora + fim_minuto) - (iniciano_hora + iniciano_minuto)));
 
-                        var tem_para_terminar = ((fim_hora + fim_minuto) - tempo);
+                        var tem_para_terminar = eval(((fim_hora + fim_minuto) - tempo));
 
                         if(tempo_estimado > tem_para_terminar){
-                            var tempoquepassou = (tempo_estimado - tem_para_terminar);
+                            var tempoquepassou = eval((tempo_estimado - tem_para_terminar));
                         }else{
-                            var tempoquepassou = (tem_para_terminar - tempo_estimado);
+                            var tempoquepassou = eval((tem_para_terminar - tempo_estimado));
                         }
 
                         var porcentagem = eval(((100 * tempoquepassou) / tempo_estimado));
 
                         if(porcentagem < 0){
+                            porcentagem = "'"+porcentagem+"'";
                             porcentagem = porcentagem.replace('-', '');
                         }    
 

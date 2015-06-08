@@ -72,32 +72,24 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
 
             var data = setInterval(function () {
 
+                console.log("Buscando imagens");
+
                 var titulos = $('img');
-
-                if(titulos.length > 1){
-                    $.each(titulos, function (index, value) {
-
-                        if ($(value).data('titulo')) {
-                            addTitulo($(value).data('titulo'), $(value));
-                        }
-                    });
-
-                    clearInterval(data);
-               }
-
+                $.each(titulos, function (index, value) {
+                    if ($(value).data('titulo')) {
+                        addTitulo($(value).data('titulo'), $(value));
+                    }
+                });
             }, 1000);
 
             var titulos = [];
             function addTitulo(titulo, elem) {
-
                 var tem = false;
-
                 for (single in titulos) {
                     if (titulos[single].original == titulo) {
                         tem = true;
                     }
                 }
-
                 if (tem == false) {
                     titulos.push({
                         'original': titulo,
@@ -107,12 +99,31 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
                 }
             }
 
+             function parseAjax(titulos){
+
+                var status = false;
+
+                for(single in titulos){
+                    if(titulos[single].status == 'false'){
+                        status = true;
+                    }
+                }
+
+                return status;
+            }
+
             var permisao = true;
             var permisao_percentual = true;
-
             var media = setInterval(function () {
 
+                console.log("Atualizando Imagens " + parseAjax(titulos));
+
                 for (novidade in titulos) {
+
+                    if(parseAjax(titulos) == false){
+                        clearInterval(media);
+                        clearInterval(data);
+                    }
 
                     if (titulos[novidade].status == false && permisao == true) {
 
@@ -154,27 +165,11 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
 
                     if(percentual.length > 0){
                         permisao_percentual = false;
-                        analisaTime(percentual);
                     }
                 }
 
             }, 500);
 
-            function analisaTime(element){
-
-                var string_calcula_tempo = Controle.calcula_porcentagem($(element).data('start').toString(), $(element).data('stop').toString());
-
-                string_calcula_tempo = Math.ceil(string_calcula_tempo);
-                string_calcula_tempo =  (string_calcula_tempo < 1 || string_calcula_tempo == "" 
-                    ? "2" 
-                    : (string_calcula_tempo > 100 ? 99 : string_calcula_tempo));
-                     
-                $(element[single]).attr({
-                    'style' : 'width: ' + string_calcula_tempo + '%',
-                });
-
-                $(element[single]).html(string_calcula_tempo);
-            }
         })
 
         .controller('SingleController', function ($scope, $routeParams, $location, Controle) {
@@ -249,19 +244,15 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
 
             var data = setInterval(function () {
 
+                console.log("Buscando imagens");
+
                 var titulos = $('img');
+                $.each(titulos, function (index, value) {
 
-                if(titulos.length > 1){
-                    $.each(titulos, function (index, value) {
-
-                        if ($(value).data('titulo')) {
-                            addTitulo($(value).data('titulo'), $(value));
-                        }
-                    });
-
-                    clearInterval(data);
-               }
-
+                    if ($(value).data('titulo')) {
+                        addTitulo($(value).data('titulo'), $(value));
+                    }
+                });
             }, 1000);
 
             var titulos = [];
@@ -284,10 +275,26 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
                 }
             }
 
+            function parseAjax(titulos){
+                var status = false;
+                for(single in titulos){
+                    if(titulos[single].status == 'false'){
+                        status = true;
+                    }
+                }
+                return status;
+            }
 
             var media = setInterval(function () {
 
+                console.log("Atualizando Imagens");
+
                 for (novidade in titulos) {
+
+                    if(parseAjax(titulos) == false){
+                        clearInterval(media);
+                        clearInterval(data);
+                    }
 
                     if (titulos[novidade].status == false && permisao == true) {
 
@@ -323,32 +330,6 @@ angular.module('Controlador', ['ngRoute', 'ngError', 'Factory'])
                     }
                 }
 
-                if(permisao_percentual == true){
-                    
-                    var percentual = $('*[data-percentual="percentual"]');
-
-                    if(percentual.length > 0){
-                        permisao_percentual = false;
-                        analisaTime(percentual);
-                    }
-                }
-
             }, 500);
 
-
-            function analisaTime(element){
-
-                var string_calcula_tempo = Controle.calcula_porcentagem($(element).data('start').toString(), $(element).data('stop').toString());
-
-                string_calcula_tempo = Math.ceil(string_calcula_tempo);
-                string_calcula_tempo =  (string_calcula_tempo < 1 || string_calcula_tempo == "" 
-                    ? "2" 
-                    : (string_calcula_tempo > 100 ? 99 : string_calcula_tempo));
-                     
-                $(element[single]).attr({
-                    'style' : 'width: ' + string_calcula_tempo + '%',
-                });
-
-                $(element[single]).html(string_calcula_tempo);
-            }
         });

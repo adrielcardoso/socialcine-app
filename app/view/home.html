@@ -26,7 +26,7 @@
 <div class="col-md-12" style="text-align:left; margin-top:50px;display:none;" id="box-programacao">
 
     <!-- card view -->
-    <div ng-repeat="single in programacao| filter:search" style="box-shadow:1px 1px 50px #696969;position:relative; margin:auto; width:496px; min-height:420px; border:1px solid #cdcdcd;background:#fff;margin-top:20px; border-radius:3px;">
+    <div class="contador" ng-repeat="single in programacao| filter:search" style="box-shadow:1px 1px 50px #696969;position:relative; margin:auto; width:496px; min-height:420px; border:1px solid #cdcdcd;background:#fff;margin-top:20px; border-radius:3px;">
         <div style="position:relative; margin:auto; width:100%;">
             <div style="position:relative; float:left; width:100px; left:0px;padding:10px;">
                 <img err-src="app/componentes/img/not.png" src="app/componentes/img/icones/{{single.programacao['channel']}}.jpg" style="width:80px;height:80px;" />
